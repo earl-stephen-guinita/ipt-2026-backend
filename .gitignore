@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+npm-debug.log*
+
+# Build output
+dist/
+build/
+*.js
+*.js.map
+!_helpers/swagger.js
+
+# Environment files
+.env
+.env.local
+config.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Uploaded files
+uploads/
