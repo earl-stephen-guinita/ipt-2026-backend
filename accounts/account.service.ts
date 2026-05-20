@@ -202,6 +202,7 @@ async function hash(password: any) {
 
 function generateJwtToken(account: any) {
     try {
+        const secret = process.env.JWT_SECRET || 'fallback-secret';
         return jwt.sign({ sub: account.id, id: account.id }, secret, { expiresIn: 900 });
     } catch(e) {
         console.error('JWT error:', e);
