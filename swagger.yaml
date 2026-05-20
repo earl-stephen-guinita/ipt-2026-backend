@@ -3,5 +3,5 @@ info:
   title: Node MySQL API
   version: 1.0.0
 servers:
-  - url: http://localhost:4000
+  - url: https://ipt-2026-backend-5ihl.onrender.com
 paths: {}
