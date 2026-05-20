@@ -25,3 +25,13 @@ app.use(errorHandler);
 
 const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
 app.listen(port, () => console.log('Server listening on port ' + port));
+
+// Keep Render free tier alive
+import https from 'https';
+setInterval(() => {
+  https.get('https://ipt-2026-backend-5ihl.onrender.com/accounts', (res) => {
+    res.resume(); // drain the response so the socket closes cleanly
+  }).on('error', () => {
+    // silently ignore — backend may be mid-spin-up
+  });
+}, 14 * 60 * 1000);
