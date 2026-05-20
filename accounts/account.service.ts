@@ -1,4 +1,4 @@
-import config from '../config.json';
+const secret = process.env.JWT_SECRET || 'fallback-secret';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
@@ -202,7 +202,7 @@ async function hash(password: any) {
 
 function generateJwtToken(account: any) {
     try {
-        return jwt.sign({ sub: account.id, id: account.id }, config.secret, { expiresIn: 900 });
+        return jwt.sign({ sub: account.id, id: account.id }, secret, { expiresIn: 900 });
     } catch(e) {
         console.error('JWT error:', e);
         throw e;

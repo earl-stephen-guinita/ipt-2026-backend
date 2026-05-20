@@ -1,7 +1,14 @@
-import nodemailer from 'nodemailer';
-import config from '../config.json';
+import { Resend } from 'resend';
 
-export default async function sendEmail({ to, subject, html, from = config.emailFrom }: any) {
-    const transporter = nodemailer.createTransport(config.smtpOptions as any);
-    await transporter.sendMail({ from, to, subject, html });
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export default async function sendEmail({ to, subject, html, from }: any) {
+    const emailFrom = from || process.env.EMAIL_FROM || 'onboarding@resend.dev';
+    
+    await resend.emails.send({
+        from: emailFrom,
+        to,
+        subject,
+        html
+    });
 }

@@ -1,8 +1,7 @@
 import { expressjwt } from 'express-jwt';
-import config from '../config.json';
 import db from '../_helpers/db';
 
-const { secret } = config;
+const secret = process.env.JWT_SECRET || 'fallback-secret';
 
 export default function authorize(roles: any = []) {
     if (typeof roles === 'string') {
@@ -12,9 +11,6 @@ export default function authorize(roles: any = []) {
     return [
         expressjwt({ secret, algorithms: ['HS256'] }),
         async (req: any, res: any, next: any) => {
-            console.log('req.auth:', req.auth);
-            console.log('req.user:', req.user);
-            console.log('req.headers:', req.headers);
             const account = await db.Account.findByPk(req.auth.id);
 
             if (!account || (roles.length && !roles.includes(account.role))) {
