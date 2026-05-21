@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import https from 'https';
 import errorHandler from './_middleware/error-handler';
 import accountsController from './accounts/accounts.controller';
 import swaggerDocs from './_helpers/swagger';
@@ -27,7 +28,6 @@ const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 
 app.listen(port, () => console.log('Server listening on port ' + port));
 
 // Keep Render free tier alive
-import https from 'https';
 setInterval(() => {
   https.get('https://ipt-2026-backend-5ihl.onrender.com/accounts', (res) => {
     res.resume(); // drain the response so the socket closes cleanly
