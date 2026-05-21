@@ -15,7 +15,9 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: process.env.CORS_ORIGIN || 'https://ipt-2026-frontend-sjr8.onrender.com',
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use('/accounts', accountsController);
