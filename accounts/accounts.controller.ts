@@ -104,7 +104,7 @@ function verifyEmailSchema(req: any, res: any, next: any) {
 
 function verifyEmail(req: any, res: any, next: any) {
     const token = req.body.token || req.query.token;    
-    accountService.verifyEmail(req.query)
+    accountService.verifyEmail({token})
         .then(() => res.json({ message: 'Verification successful, you can now login' }))
         .catch(next);
 }
