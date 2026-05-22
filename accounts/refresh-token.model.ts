@@ -19,6 +19,9 @@ export default function model(sequelize: any) {
         }
     };
 
-    const options = { timestamps: false };
+    const options = { 
+        tableName: 'RefreshTokens', 
+        timestamps: false 
+    };
     return sequelize.define('refreshToken', attributes, options);
 }
