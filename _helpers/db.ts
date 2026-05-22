@@ -9,19 +9,19 @@ export default db;
 initialize();
 
 async function initialize() {
-    const host = process.env.DB_HOST || 'locahost';
+    const host = process.env.DB_HOST;
     const port = parseInt(process.env.DB_PORT || '3306');
-    const user = process.env.DB_USER || 'root';
-    const password = process.env.DB_PASSWORD || '';
-    const database = process.env.DB_NAME || 'node_mysql_api';
-
-    const connection = await mysql.createConnection({ host, port, user, password });
-    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
-
+    const user = process.env.DB_USER;
+    const password = process.env.DB_PASSWORD;
+    const database = process.env.DB_NAME;
+    
     const sequelize = new Sequelize(database, user, password, {
         host,
         dialect: 'mysql',
-        port
+        port,
+        logging: false,
+        dialectOptions{
+        }
     });
 
     db.Account = accountModel(sequelize);
