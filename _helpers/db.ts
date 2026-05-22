@@ -6,23 +6,35 @@ import refreshTokenModel from '../accounts/refresh-token.model';
 const db: any = {};
 export default db;
 
-initialize();
+initialize().catch(err => {
+    console.error('CRITICAL: Database initialization failed:', err);
+    process.exit(1); // Exit so Render knows to restart/retry
+});
 
 async function initialize() {
+
+    if (!process.env.DB_HOST || !process.env.DB_NAME) {
+        throw new Error("Missing DB_HOST or DB_NAME in environment variables.");
+    }
+    
     const host = process.env.DB_HOST;
     const port = parseInt(process.env.DB_PORT || '3306');
-    const user = process.env.DB_USER;
-    const password = process.env.DB_PASSWORD;
+    const user = process.env.DB_USER || 'root';
+    const password = process.env.DB_PASSWORD || '';
     const database = process.env.DB_NAME;
-    
+
     const sequelize = new Sequelize(database, user, password, {
         host,
-        dialect: 'mysql',
         port,
+        dialect: 'mysql',
         logging: false,
         dialectOptions: {
+            
         }
     });
+
+    await sequelize.authenticate();
+    console.log(`Connected to database: ${database} at ${host}`);
 
     db.Account = accountModel(sequelize);
     db.RefreshToken = refreshTokenModel(sequelize);
