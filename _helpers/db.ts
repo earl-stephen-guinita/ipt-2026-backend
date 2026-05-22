@@ -9,11 +9,11 @@ export default db;
 initialize();
 
 async function initialize() {
-    const host = process.env.DB_HOST || 'mysql.railway.internal';
+    const host = process.env.DB_HOST || 'locahost';
     const port = parseInt(process.env.DB_PORT || '3306');
     const user = process.env.DB_USER || 'root';
-    const password = process.env.DB_PASSWORD || 'RLKSuffhPhmdBHzbHrZAmNexzKjUtPdS';
-    const database = process.env.DB_NAME || 'railway';
+    const password = process.env.DB_PASSWORD || '';
+    const database = process.env.DB_NAME || 'node_mysql_api';
 
     const connection = await mysql.createConnection({ host, port, user, password });
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
