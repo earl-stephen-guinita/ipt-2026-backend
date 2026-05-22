@@ -17,11 +17,11 @@ async function initialize() {
         throw new Error("Missing DB_HOST or DB_NAME in environment variables.");
     }
     
-    const host = process.env.DB_HOST;
+    const host = (process.env.DB_HOST || 'localhost') as string;
     const port = parseInt(process.env.DB_PORT || '3306');
-    const user = process.env.DB_USER || 'root';
-    const password = process.env.DB_PASSWORD || '';
-    const database = process.env.DB_NAME;
+    const user = (process.env.DB_USER || 'root') as string;
+    const password = (process.env.DB_PASSWORD || '') as string;
+    const database = (process.env.DB_NAME || 'node_mysql_api') as string;
 
     const sequelize = new Sequelize(database, user, password, {
         host,
