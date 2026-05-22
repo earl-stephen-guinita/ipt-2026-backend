@@ -20,7 +20,7 @@ async function initialize() {
         dialect: 'mysql',
         port,
         logging: false,
-        dialectOptions{
+        dialectOptions: {
         }
     });
 
